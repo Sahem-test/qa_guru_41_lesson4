@@ -7,6 +7,7 @@ import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
+import static guru.qa.testData.TestData.*;
 
 public class PracticeFormTests extends TestBase {
 
@@ -15,55 +16,60 @@ public class PracticeFormTests extends TestBase {
         open("/automation-practice-form");
         executeJavaScript("document.getElementById('fixedban')?.remove();");
         executeJavaScript("document.querySelector('footer')?.remove();");
-        $("#firstName").setValue("Ivan");
-        $("#lastName").setValue("Ivanov");
-        $("#userEmail").setValue("test@mail.com");
+        $("#firstName").setValue(userName);
+        $("#lastName").setValue(lastName);
+        $("#userEmail").setValue(userEmail);
         $("#gender-radio-1").click();
-        $("#userNumber").setValue("8985426455");
+        $("#userNumber").setValue(userNumber);
         $("#dateOfBirthInput").click();
-        $(".react-datepicker__month-select").selectOption("November");
-        $(".react-datepicker__year-select").selectOption("1976");
+        $(".react-datepicker__month-select").selectOption(month);
+        $(".react-datepicker__year-select").selectOption(year);
         $(".react-datepicker__day--010").click();
-        $("#subjectsInput").setValue("Maths").pressEnter();
+        $("#subjectsInput").setValue(subjects).pressEnter();
         $("#hobbies-checkbox-1").click();
-        $("#uploadPicture").uploadFromClasspath("test.txt");
-        $("#currentAddress").setValue("new address");
+        $("#uploadPicture").uploadFromClasspath(uploadPicture);
+        $("#currentAddress").setValue(currentAddress);
         $("#state").click();
-        $("#stateCity-wrapper").$(byText("NCR")).click();
+        $("#stateCity-wrapper").$(byText(state)).click();
         $("#city").click();
-        $("#stateCity-wrapper").$(byText("Delhi")).click();
+        $("#stateCity-wrapper").$(byText(city)).click();
         $("#submit").click();
 
-        $("#resultModal").shouldHave(text("Ivan Ivanov"));
-        $("#resultModal").shouldHave(text("test@mail.com"));
-        $("#resultModal").shouldHave(text("Male"));
-        $("#resultModal").shouldHave(text("8985426455"));
-        $("#resultModal").shouldHave(text("1976-11-10"));
-        $("#resultModal").shouldHave(text("Maths"));
-        $("#resultModal").shouldHave(text("Sports"));
-        $("#resultModal").shouldHave(text("test.txt"));
-        $("#resultModal").shouldHave(text("new address"));
-        $("#resultModal").shouldHave(text("NCR Delhi"));
+        $("#resultModal")
+                .shouldHave(text(userName + " " + lastName))
+                .shouldHave(text(userEmail))
+                .shouldHave(text("Male"))
+                .shouldHave(text(userNumber))
+                .shouldHave(text("1976-11-10"))
+                .shouldHave(text(subjects))
+                .shouldHave(text("Sports"))
+                .shouldHave(text(uploadPicture))
+                .shouldHave(text(currentAddress))
+                .shouldHave(text(state + " " + city));
     }
 
     @Test
     void minimalRequiredFieldsPositiveTest() {
         open("/automation-practice-form");
-        $("#firstName").setValue("Ivan");
-        $("#lastName").setValue("Ivanov");
+        executeJavaScript("document.getElementById('fixedban')?.remove();");
+        executeJavaScript("document.querySelector('footer')?.remove();");
+        $("#firstName").setValue(userName);
+        $("#lastName").setValue(lastName);
         $("#gender-radio-1").click();
-        $("#userNumber").setValue("8985426455");
+        $("#userNumber").setValue(userNumber);
         $("#submit").click();
 
-        $("#resultModal").shouldHave(text("Ivan Ivanov"));
+        $("#resultModal").shouldHave(text(userName + " " + lastName));
         $("#resultModal").shouldHave(text("Male"));
-        $("#resultModal").shouldHave(text("8985426455"));
+        $("#resultModal").shouldHave(text(userNumber));
     }
 
     @Test
     void lessMinimalRequiredFieldsNegativeTest() {
         open("/automation-practice-form");
-        $("#firstName").setValue("Ivan");
+        executeJavaScript("document.getElementById('fixedban')?.remove();");
+        executeJavaScript("document.querySelector('footer')?.remove();");
+        $("#firstName").setValue(userName);
         $("#submit").click();
 
         $("#resultModal").shouldNotBe(visible);
@@ -72,23 +78,28 @@ public class PracticeFormTests extends TestBase {
     @Test
     void lessMinimalSignPhoneNegativeTest() {
         open("/automation-practice-form");
-        $("#firstName").setValue("Ivan");
-        $("#lastName").setValue("Ivanov");
+        executeJavaScript("document.getElementById('fixedban')?.remove();");
+        executeJavaScript("document.querySelector('footer')?.remove();");
+        $("#firstName").setValue(userName);
+        $("#lastName").setValue(lastName);
         $("#gender-radio-1").click();
-        $("#userNumber").setValue("89854264");
+        $("#userNumber").setValue(userNumber);
         $("#submit").click();
 
         $("#resultModal").shouldNotBe(visible);
+
     }
 
     @Test
     void emailWithoutTopLevelDomainNegativeTest() {
         open("/automation-practice-form");
-        $("#firstName").setValue("Ivan");
-        $("#lastName").setValue("Ivanov");
+        executeJavaScript("document.getElementById('fixedban')?.remove();");
+        executeJavaScript("document.querySelector('footer')?.remove();");
+        $("#firstName").setValue(userName);
+        $("#lastName").setValue(lastName);
         $("#userEmail").setValue("testmail@");
         $("#gender-radio-1").click();
-        $("#userNumber").setValue("8985426455");
+        $("#userNumber").setValue(userNumber);
         $("#submit").click();
 
         $("#resultModal").shouldNotBe(visible);
@@ -97,11 +108,13 @@ public class PracticeFormTests extends TestBase {
     @Test
     void emailNoAtInvalidNegativeTest() {
         open("/automation-practice-form");
-        $("#firstName").setValue("Ivan");
-        $("#lastName").setValue("Ivanov");
+        executeJavaScript("document.getElementById('fixedban')?.remove();");
+        executeJavaScript("document.querySelector('footer')?.remove();");
+        $("#firstName").setValue(userName);
+        $("#lastName").setValue(lastName);
         $("#userEmail").setValue("testmail.com");
         $("#gender-radio-1").click();
-        $("#userNumber").setValue("8985426455");
+        $("#userNumber").setValue(userNumber);
         $("#submit").click();
 
         $("#resultModal").shouldNotBe(visible);
