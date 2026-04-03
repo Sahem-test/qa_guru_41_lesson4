@@ -59,9 +59,10 @@ public class PracticeFormTests extends TestBase {
         $("#userNumber").setValue(userNumber);
         $("#submit").click();
 
-        $("#resultModal").shouldHave(text(userName + " " + lastName));
-        $("#resultModal").shouldHave(text("Male"));
-        $("#resultModal").shouldHave(text(userNumber));
+        $("#resultModal")
+                .shouldHave(text(userName + " " + lastName))
+                .shouldHave(text("Male"))
+                .shouldHave(text(userNumber));
     }
 
     @Test
