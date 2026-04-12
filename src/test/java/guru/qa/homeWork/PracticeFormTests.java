@@ -24,7 +24,7 @@ public class PracticeFormTests extends TestBase {
         $("#dateOfBirthInput").click();
         $(".react-datepicker__month-select").selectOption(month);
         $(".react-datepicker__year-select").selectOption(year);
-        $(".react-datepicker__day--010").click();
+        $(".react-datepicker__day--031:not(.react-datepicker__day--outside-month)").click();
         $("#subjectsInput").setValue(subjects).pressEnter();
         $("#hobbies-checkbox-1").click();
         $("#uploadPicture").uploadFromClasspath(uploadPicture);
@@ -34,13 +34,14 @@ public class PracticeFormTests extends TestBase {
         $("#city").click();
         $("#stateCity-wrapper").$(byText(city)).click();
         $("#submit").click();
-
+//react-datepicker__day react-datepicker__day--031 react-datepicker__day--outside-month // первый(Ненужный) селектор, из него взять отличия от нужного селектора и вставить через :not(.react-datepicker__day--outside-month)
+//react-datepicker__day react-datepicker__day--031 // второй(нужный) селектор react-datepicker__day--031
         $("#resultModal")
                 .shouldHave(text(userName + " " + lastName))
                 .shouldHave(text(userEmail))
                 .shouldHave(text("Male"))
                 .shouldHave(text(userNumber))
-                .shouldHave(text("1976-11-10"))
+                .shouldHave(text("1976-01-31"))
                 .shouldHave(text(subjects))
                 .shouldHave(text("Sports"))
                 .shouldHave(text(uploadPicture))

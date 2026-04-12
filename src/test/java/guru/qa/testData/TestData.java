@@ -6,7 +6,7 @@ public class TestData {
             lastName = "Ivanov",
             userEmail = "test@gmail.com",
             userNumber = "8985426455",
-            month = "November",
+            month = "January",
             year = "1976",
             subjects = "Maths",
             uploadPicture = "test.txt",
